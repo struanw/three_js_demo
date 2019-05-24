@@ -17,7 +17,7 @@
          var scene = new THREE.Scene();
 
          var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000)
-            camer.position.z = 5;
+            camera.position.z = 5;
 
          var renderer = new THREE.WebGLRenderer({antialias: true});
         renderer.setClearColor("#e5e5e5");
@@ -32,19 +32,53 @@
                 camera.updateProjectionMatrix();
         } ) 
 
+                var raycaster = new THREE.Raycaster();
+                var mouse = new THREE.Vector2();
 
                 var geometry = new THREE.BoxGeometry(1, 1, 1);
                 var material = new THREE.MeshLambertMaterial({color: 0xFFCC00 });
                 var mesh = new THREE.Mesh(geometry, material);
 
-                scene.add(mesh);
+                // mesh.rotation.set(45,0,0);
+                // mesh.scale.set(1,2,1);
 
-                var light = THREE
+                scene.add(mesh); 
 
-                renderer.render(scene, camera);
-                
+                var light = new THREE.PointLight(0xFFFFFF, 1, 500)
+                light.position.set(10,0,25);
+                scene.add(light);
+
+                var render = function() {
+                    requestAnimationFrame(render);
+
+                    // mesh.rotation.x += 0.05;
+                    // mesh.rotation.y += 0.01;
+
+
+                    renderer.render(scene, camera);
+                }
+  
+                  function onMouseMove(event) {
+                      event.preventDefault();
+
+                      mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+                      mouse.y = - (event.clientY / window.innerHeight ) * 2 + 1;
+
+                      raycaster.setFromCamera(mouse, camera);
+
+                      var intersects = raycaster.intersec
+                  }  
+
+                render();
+
+                this.tl = new TimelineMax({paused: true});
+                this.tl.to(this.mesh.scale, 1, {x: 2, ease: Expo.easeOut})
+                this.tl.to(this.mesh.scale, 2, {x: 1, ease: Expo.easeOut})
+                this.tl.to(this.mesh.rotation, 0.5, {y: Math.PI*2, ease: Expo.easeOut})
+
+                window.addEventListener('mousemove', onMouseMove);
+ 
      
     </script>
 </body> 
 </html> 
- 
