@@ -44,6 +44,15 @@
 
                 scene.add(mesh); 
 
+                var geometry = new THREE.BoxGeometry(1, 1, 1);
+                var material = new THREE.MeshLambertMaterial({color: 0xFFCC00 });
+                var mesh = new THREE.Mesh(geometry, material); 
+                mesh.position.y = 2;
+                scene.add(mesh); 
+
+
+
+
                 var light = new THREE.PointLight(0xFFFFFF, 1, 500)
                 light.position.set(10,0,25);
                 scene.add(light);
@@ -66,15 +75,18 @@
 
                       raycaster.setFromCamera(mouse, camera);
 
-                      var intersects = raycaster.intersec
+                      var intersects = raycaster.intersectObjects(scene.children, true);
+                      for (var i = 0; i < intersects.length; i++) {
+                         this.tl = new TimelineMax();
+                         this.tl.to(intersects[i].object.scale, 1, {x: 2, ease: Expo.easeOut})
+                         this.tl.to(intersects[i].object.scale, 0.5, {x: 1, ease: Expo.easeOut})
+                         this.tl.to(intersects[i].object.position, 0.5, {x:2, ease: Expo.easeOut})
+                         this.tl.to(intersects[i].object.rotation, 0.5, {y: Math.PI*2, ease: Expo.easeOut})
+
+                      }
                   }  
 
                 render();
-
-                this.tl = new TimelineMax({paused: true});
-                this.tl.to(this.mesh.scale, 1, {x: 2, ease: Expo.easeOut})
-                this.tl.to(this.mesh.scale, 2, {x: 1, ease: Expo.easeOut})
-                this.tl.to(this.mesh.rotation, 0.5, {y: Math.PI*2, ease: Expo.easeOut})
 
                 window.addEventListener('mousemove', onMouseMove);
  
