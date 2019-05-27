@@ -36,12 +36,11 @@
                 var mouse = new THREE.Vector2();
 
                 var geometry = new THREE.BoxGeometry(1, 1, 1);
-                var material = new THREE.MeshLambertMaterial({color: 0xFFCC00 });
+                var material = new THREE.MeshLambertMaterial({color: 0xffcccc });   //pink
                 var mesh = new THREE.Mesh(geometry, material);
-
                 // mesh.rotation.set(45,0,0);
                 // mesh.scale.set(1,2,1);
-
+                mesh.position.x= -2;
                 scene.add(mesh); 
 
                 var geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -78,10 +77,10 @@
                       var intersects = raycaster.intersectObjects(scene.children, true);
                       for (var i = 0; i < intersects.length; i++) {
                          this.tl = new TimelineMax();
-                         this.tl.to(intersects[i].object.scale, 1, {x: 2, ease: Expo.easeOut})
-                         this.tl.to(intersects[i].object.scale, 0.5, {x: 1, ease: Expo.easeOut})
+                       //  this.tl.to(intersects[i].object.scale, 1, {x: 2, ease: Expo.easeOut})
+                       //  this.tl.to(intersects[i].object.scale, 0.5, {x: 1, ease: Expo.easeOut})
                          this.tl.to(intersects[i].object.position, 0.5, {x:2, ease: Expo.easeOut})
-                         this.tl.to(intersects[i].object.rotation, 0.5, {y: Math.PI*2, ease: Expo.easeOut})
+                         this.tl.to(intersects[i].object.rotation, 4, {x: Math.PI*.75, ease: Expo.easeOut})
 
                       }
                   }  
