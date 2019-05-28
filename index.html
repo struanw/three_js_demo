@@ -40,17 +40,15 @@
               
 
                 meshX = -10
-                for (var i = 0; i<6; i++) { 
+                for (var i = 0; i<5; i++) { 
                     var mesh = new THREE.Mesh(geometry, material); 
-                    mesh.position.x = (Math.random()-.5)*5;
-                    mesh.position.y = (Math.random()-.5)*5;
-                    mesh.position.z = (Math.random()-.5)*5;
+                    mesh.position.x = (Math.random())*4;
+                    mesh.position.y = 2.3;
+                    mesh.position.z = 1;
                     scene.add(mesh); 
                     meshX+=1;
                }
             
- 
-
 
                 
 
